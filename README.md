@@ -1,5 +1,5 @@
 # FRC-2015cb
-This contains working code for Team 2642 2015 robot. Released under an MIT license. Made with love by Pitt Pirates in Eclipse IDE.
+This contains (almost) working code for Team 2642 2015 robot. Released under an MIT license. Made with love by Pitt Pirates in Eclipse IDE.
 
 ## Contents
 
