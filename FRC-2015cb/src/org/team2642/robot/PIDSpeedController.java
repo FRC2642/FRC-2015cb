@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /*
- * Implements a SpeedController with an underlying PID controller
+ * PIDController that implements SpeedController
  */
 public class PIDSpeedController implements SpeedController {
 
@@ -25,11 +25,6 @@ public class PIDSpeedController implements SpeedController {
 
 	public void setConstants(double p, double i, double d) {
 		controller.setPID(p, i, d);
-	}
-
-	@Override
-	public void pidWrite(double output) {
-		// Never Used
 	}
 
 	@Override
@@ -55,6 +50,11 @@ public class PIDSpeedController implements SpeedController {
 
 	public void reset() {
 		controller.reset();
+	}
+
+	@Override
+	public void pidWrite(double output) {
+		// required
 	}
 
 }

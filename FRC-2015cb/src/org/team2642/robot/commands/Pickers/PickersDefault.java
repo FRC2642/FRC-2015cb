@@ -1,4 +1,4 @@
-package org.team2642.robot.commands.Lift;
+package org.team2642.robot.commands.Pickers;
 
 import org.team2642.robot.Robot;
 
@@ -7,12 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MoveLiftToBottom extends Command {
+public class PickersDefault extends Command {
 
-    public MoveLiftToBottom() {
+    public PickersDefault() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.Lift);
+    	requires(Robot.Pickers);
     }
 
     // Called just before this Command runs the first time
@@ -21,22 +21,19 @@ public class MoveLiftToBottom extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.Lift.moveLiftDown();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return (Robot.Lift.getBottomLimit() /*|| Robot.Lift.getEncoder() < 20*/);
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.Lift.stopLift();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	//end();
     }
 }

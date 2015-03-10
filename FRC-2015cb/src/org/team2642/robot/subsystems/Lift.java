@@ -27,6 +27,9 @@ public class Lift extends Subsystem {
     
     public String subsystemName;
     
+    public final double liftUpperBound = 1150;
+    public final double liftLowerBound = 80;
+    
     /*
     public static DigitalInput topLimit;
     public static DigitalInput bottomLimit;
@@ -68,17 +71,23 @@ public class Lift extends Subsystem {
     public void moveLiftUp() {
 		//movementState = LiftMovement.Up;
 		//releaseBrake();
-		if (!getTopLimit()) {
+		if (!getTopLimit() || liftEncoder.getDistance() < liftUpperBound) {
 			pid.set(-getLiftSpeed());
-			SmartDashboard.putString(subsystemName + "Move state", "Up");
-			SmartDashboard.putNumber(subsystemName, liftEncoder.getRate());
 		}
+		SmartDashboard.putString(subsystemName + "Move state", "Up");
+		SmartDashboard.putNumber(subsystemName, liftEncoder.getRate());
 	}
 
-	public void moveLiftDown() {
+	public boolean isLiftAboveDogs() {
+		return (liftEncoder.getDistance() > 1200);
+	}
+    
+    public void moveLiftDown() {
 		//movementState = LiftMovement.Down;
 		//releaseBrake();
-		pid.set(getLiftSpeed());
+		if (liftEncoder.getDistance() > liftLowerBound) {
+    		pid.set(getLiftSpeed());
+		}
 		SmartDashboard.putString(subsystemName + "Move state", "Down");
 		SmartDashboard.putNumber(subsystemName, liftEncoder.getRate());
 	}
@@ -90,8 +99,15 @@ public class Lift extends Subsystem {
 		SmartDashboard.putString(subsystemName + "Move state", "Stop");
 	}
 	
-    public double getLiftEncoder() {
+    public double getLiftEncoderDist() {
     	return liftEncoder.getDistance();
+    }
+    public double getLiftEncoderRate() {
+    	return liftEncoder.getRate();
+    }
+    
+    public void resetLiftEncoder() {
+    	liftEncoder.reset();
     }
     
     public boolean getToteInRobot() {
@@ -135,6 +151,13 @@ public class Lift extends Subsystem {
     }
     public void setFlipper(boolean on) {
     	flipper.set(on);
+    }
+    
+    public void startCompressor() {
+    	compressor.start();
+    }
+    public void stopCompressor() {
+    	compressor.stop();
     }
     
     

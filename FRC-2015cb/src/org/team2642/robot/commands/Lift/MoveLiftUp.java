@@ -7,26 +7,26 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MoveLiftToBottom extends Command {
+public class MoveLiftUp extends Command {
 
-    public MoveLiftToBottom() {
+    public MoveLiftUp() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.Lift);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.Lift.moveLiftDown();
+    	Robot.Lift.moveLiftUp();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return (Robot.Lift.getBottomLimit() /*|| Robot.Lift.getEncoder() < 20*/);
+        return false;
     }
 
     // Called once after isFinished returns true
@@ -37,6 +37,6 @@ public class MoveLiftToBottom extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	//end();
+    	end();
     }
 }

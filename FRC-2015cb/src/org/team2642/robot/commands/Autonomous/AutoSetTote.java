@@ -30,7 +30,7 @@ public class AutoSetTote extends CommandGroup {
         // arm.
     	requires(Robot.Lift);
     	
-    	addSequential(new MoveLiftToPos(800));
+    	addSequential(new MoveLiftToPos(1100));
     	addSequential(new MoveLiftToBottom());
     	
     }
