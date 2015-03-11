@@ -29,7 +29,7 @@ public class  MecanumDefault extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.mecanumDrive(Robot.oi.getStick(), 0);
+    	Robot.driveTrain.drive(Robot.oi.getStick(), 0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

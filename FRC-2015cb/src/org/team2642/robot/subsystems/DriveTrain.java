@@ -15,26 +15,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DriveTrain extends Subsystem {
     
+    Encoder leftEncoder = RobotMap.backLeftEncoder;
+    Encoder rightEncoder = RobotMap.backRightEncoder;
+    
 	SpeedController frontLeftMotor = RobotMap.driveTrainFrontLeftMotor;
     SpeedController backLeftMotor = RobotMap.driveTrainRearLeftMotor;
     SpeedController frontRightMotor = RobotMap.driveTrainFrontRightMotor;
     SpeedController backRightMotor = RobotMap.driveTrainRearRightMotor;
-    
-    RobotDrive robotDrive = RobotMap.driveTrainrobotDrive;
-    
-    Encoder leftEncoder = RobotMap.backLeftEncoder;
-    Encoder rightEncoder = RobotMap.backRightEncoder;
-    
+
     PIDSpeedController backLeftPID = new PIDSpeedController(leftEncoder, backLeftMotor, "Drive", "Back Left");
     PIDSpeedController backRightPID = new PIDSpeedController(rightEncoder, backRightMotor, "Drive", "Back Left");
     
-    Accelerometer accel = RobotMap.accel;
+    RobotDrive robotDrive = RobotMap.driveTrainrobotDrive;
     
+    Accelerometer accel = RobotMap.accel;
     Gyro gyro = RobotMap.gyro;
     
     public String subsystemName;
-	
-
+    public static final double driveKp = 0.04;
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -83,16 +81,16 @@ public class DriveTrain extends Subsystem {
     	 gyro.reset();
     }
     
-    /*public void mecanumDrive(Joystick stick) {
-    	robotDrive.mecanumDrive_Cartesian(stick.getX(), stick.getY(), stick.getTwist(), 0);
-    }*/
-    
-    public void mecanumDrive(Joystick stick, double angle) {
+    public void drive(Joystick stick, double angle) {
     	robotDrive.mecanumDrive_Cartesian(stick.getX(), stick.getY(), stick.getTwist(), angle);
     }
     
     public void drive(double speedX, double speedY, double speedR) {
     	robotDrive.mecanumDrive_Cartesian(speedX, speedY, speedR, 0);
+    }
+    
+    public void driveStraightY(Joystick stick, double setangle) {
+    	robotDrive.mecanumDrive_Cartesian(stick.getX(), (gyro.getAngle() - setangle)*-driveKp, stick.getY(), 0);
     }
     
     public void driveAngle(double angle, double speed) {

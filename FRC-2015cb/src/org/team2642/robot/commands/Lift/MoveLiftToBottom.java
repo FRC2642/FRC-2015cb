@@ -20,22 +20,26 @@ public class MoveLiftToBottom extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
+    @Override
     protected void execute() {
     	Robot.Lift.moveLiftDown();
     }
 
     // Make this return true when this Command no longer needs to run execute()
+    @Override
     protected boolean isFinished() {
-    	return (Robot.Lift.getBottomLimit() /*|| Robot.Lift.getEncoder() < 20*/);
+    	return (Robot.Lift.getBottomLimit() || Robot.Lift.liftInRightPlace());
     }
 
     // Called once after isFinished returns true
+    @Override
     protected void end() {
     	Robot.Lift.stopLift();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
+    @Override
     protected void interrupted() {
     	//end();
     }

@@ -22,7 +22,7 @@ public class FieldOrientDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.mecanumDrive(Robot.oi.getStick(), Robot.driveTrain.getGyro());
+    	Robot.driveTrain.drive(Robot.oi.getStick(), Robot.driveTrain.getGyro());
     }
 
     // Make this return true when this Command no longer needs to run execute()

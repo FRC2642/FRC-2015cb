@@ -1,20 +1,17 @@
 package org.team2642.robot.commands.Lift;
 
 import org.team2642.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class MoveLiftToPos extends Command {
-	
-	private double position;
-	
-    public MoveLiftToPos(double pos) {
+public class MoveLiftDown extends Command {
+
+    public MoveLiftDown() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.Lift);
-    	position = pos;
     }
 
     // Called just before this Command runs the first time
@@ -24,15 +21,12 @@ public class MoveLiftToPos extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.Lift.moveLiftToPos(position);
-    	if (Robot.Lift.getLiftEncoderDist() > position) {
-    		Robot.Lift.setDogs(true);
-    	}
+    	Robot.Lift.moveLiftDown();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (Robot.Lift.liftAtTarget(position));
+        return false;
     }
 
     // Called once after isFinished returns true

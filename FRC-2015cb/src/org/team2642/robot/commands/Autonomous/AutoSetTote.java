@@ -3,6 +3,7 @@ package org.team2642.robot.commands.Autonomous;
 import org.team2642.robot.Robot;
 import org.team2642.robot.commands.Lift.MoveLiftToBottom;
 import org.team2642.robot.commands.Lift.MoveLiftToPos;
+import org.team2642.robot.subsystems.Lift;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -30,7 +31,8 @@ public class AutoSetTote extends CommandGroup {
         // arm.
     	requires(Robot.Lift);
     	
-    	addSequential(new MoveLiftToPos(1100));
+    	addSequential(new DriveToTote());
+    	addSequential(new MoveLiftToPos(Lift.UPPERBOUND - 10));
     	addSequential(new MoveLiftToBottom());
     	
     }

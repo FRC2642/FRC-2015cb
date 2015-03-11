@@ -34,7 +34,6 @@ public class Robot extends IterativeRobot {
         driveTrain = new DriveTrain("DriveTrain");
         Lift = new Lift("Lift");
         Pickers = new Pickers();
-        initiation = new Initiation();
 
         // OI must be constructed after subsystems. If the OI creates Commands 
         //(which it very likely will), subsystems are not guaranteed to be 
