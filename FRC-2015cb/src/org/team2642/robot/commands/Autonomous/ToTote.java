@@ -7,12 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveToTote extends Command {
+public class ToTote extends Command {
 
-    public DriveToTote() {
+    public ToTote() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.driveTrain);
+    	//requires(Robot.driveTrain);
     	requires(Robot.Lift);
     }
 
@@ -22,7 +22,7 @@ public class DriveToTote extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.drive(0, 0.8, 0);
+    	//Robot.driveTrain.drive(0, 0.8, 0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,7 +32,7 @@ public class DriveToTote extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.driveTrain.drive(0, 0, 0);
+    	//Robot.driveTrain.drive(0, 0, 0);
     }
 
     // Called when another command which requires one or more of the same

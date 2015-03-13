@@ -1,39 +1,40 @@
 package org.team2642.robot.commands.Autonomous;
 
 import org.team2642.robot.Robot;
-import org.team2642.robot.commands.Lift.MoveLiftToBottom;
-import org.team2642.robot.commands.Lift.MoveLiftToPos;
-import org.team2642.robot.subsystems.Lift;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class AutoSetTote extends CommandGroup {
-    
-    public  AutoSetTote() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
+public class AutoSetTote extends Command {
 
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
+    public AutoSetTote() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
     	requires(Robot.Lift);
+    }
+
+    // Called just before this Command runs the first time
+    protected void initialize() {
+    }
+
+    // Called repeatedly when this Command is scheduled to run
+    protected void execute() {
     	
-    	addSequential(new DriveToTote());
-    	addSequential(new MoveLiftToPos(Lift.UPPERBOUND - 10));
-    	addSequential(new MoveLiftToBottom());
-    	
+    }
+
+    // Make this return true when this Command no longer needs to run execute()
+    protected boolean isFinished() {
+        return false;
+    }
+
+    // Called once after isFinished returns true
+    protected void end() {
+    }
+
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    protected void interrupted() {
     }
 }

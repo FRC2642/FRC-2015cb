@@ -52,9 +52,10 @@ public class OI {
         //Lift Commands
         flipper.toggleWhenPressed(new FlipperOn());
         // Manual Lift
+        manualUp.whileHeld(new MoveLiftUp());
+    	manualDown.whileHeld(new MoveLiftDown());
         if (manualOn.get()) {
-        	manualUp.whileHeld(new MoveLiftUp());
-        	manualDown.whileHeld(new MoveLiftDown());
+        	
         } else {
         	// Auto Lift
         	if (Robot.Lift.getToteInRobot()) {new AutoSetTote();}
