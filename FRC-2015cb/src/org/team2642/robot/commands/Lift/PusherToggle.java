@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class FlipperOn extends Command {
+public class PusherToggle extends Command {
 
-    public FlipperOn() {
+    public PusherToggle() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.Lift);
@@ -17,7 +17,7 @@ public class FlipperOn extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.Lift.setFlipper(true);
+    	Robot.Lift.togglePusher();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -27,12 +27,12 @@ public class FlipperOn extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.Lift.setFlipper(false);
+    	
     }
 
     // Called when another command which requires one or more of the same

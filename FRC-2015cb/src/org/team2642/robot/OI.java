@@ -50,7 +50,7 @@ public class OI {
         Button pusherset = new JoystickButton(auxstick, 7);
         
         //Lift Commands
-        flipper.toggleWhenPressed(new FlipperOn());
+        flipper.whenPressed(new FlipperToggle());
         // Manual Lift
         manualUp.whileHeld(new MoveLiftUp());
     	manualDown.whileHeld(new MoveLiftDown());
@@ -62,8 +62,8 @@ public class OI {
         }
         
         autoReleaseStack.whenPressed(new AutoReleaseStack());
-        dogsset.toggleWhenPressed(new DogsOn());
-        pusherset.toggleWhenPressed(new PusherOn());
+        dogsset.whenPressed(new DogsToggle());
+        pusherset.whenPressed(new PusherToggle());
         
         
         //Picker Buttons
@@ -85,9 +85,9 @@ public class OI {
         SmartDashboard.putData("MoveLiftToTop", new MoveLiftToTop());
         SmartDashboard.putData("AutoStack", new AutoStack());
         //Lift auc cmds
-        SmartDashboard.putData("DogsOn", new DogsOn());
-        SmartDashboard.putData("FlipperOn", new FlipperOn());
-        SmartDashboard.putData("PusherOn", new PusherOn());
+        SmartDashboard.putData("DogsOn", new DogsToggle());
+        SmartDashboard.putData("FlipperOn", new FlipperToggle());
+        SmartDashboard.putData("PusherOn", new PusherToggle());
         
 
     } //end OI constructor

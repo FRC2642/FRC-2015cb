@@ -168,17 +168,35 @@ public class Lift extends Subsystem {
     	return (liftEncoder.getDistance() < position + liftTolerance && liftEncoder.getDistance() > position - liftTolerance);
     }
     
-    public boolean getDogs() {
-    	return dogs.get();
+    public void toggleDogs() {
+    	if (dogs.get() == true) {
+    		dogs.set(false);
+    	} else {
+    		dogs.set(true);
+    	}
     }
-    public void setDogs(boolean on) {
-    	dogs.set(on);
+    public void setDogs(boolean set) {
+    	dogs.set(set);
     }
-    public void setPusher(boolean on) {
-    	pusher.set(on);
+    public void togglePusher() {
+    	if (pusher.get() == true) {
+    		pusher.set(false);
+    	} else {
+    		pusher.set(true);
+    	}
     }
-    public void setFlipper(boolean on) {
-    	flipper.set(on);
+    public void setPusher(boolean set) {
+    	pusher.set(set);
+    }
+    public void toggleFlipper() {
+    	if (flipper.get() == true) {
+    		flipper.set(false);
+    	} else {
+    		flipper.set(true);
+    	}
+    }
+    public void setFlipper(boolean set) {
+    	flipper.set(set);
     }
     
     public void startCompressor() {
