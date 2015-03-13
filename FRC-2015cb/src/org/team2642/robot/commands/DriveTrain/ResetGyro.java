@@ -1,46 +1,40 @@
-package org.team2642.robot.commands.Lift;
+package org.team2642.robot.commands.DriveTrain;
 
 import org.team2642.robot.Robot;
-import org.team2642.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class SetLiftToCoop extends Command {
-	
-	private int position;
-	
-    public SetLiftToCoop() {
+public class ResetGyro extends Command {
+
+    public ResetGyro() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.Lift);
+    	requires(Robot.driveTrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	position = 800;
+    	Robot.driveTrain.resetGyro();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.Lift.moveLiftToPos(position);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.Lift.liftAtTarget(position);
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.Lift.stopLift();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

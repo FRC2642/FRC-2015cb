@@ -32,17 +32,19 @@ public class AutoStack extends CommandGroup {
     	requires(Robot.Pickers);
     	
     	addSequential(new CollectTote());
-    	addParallel(new AutoDriveDist(0.6, 0, 100));
-    	addSequential(new AutoSetTote());
+    	addParallel(new AutoDriveDist(0.7, 0, 2));
     	addSequential(new SwagTheRC());
+    	addParallel(new PickersOut(0.5));
+    	addParallel(new AutoSetTote());
     	addSequential(new CollectTote());
-    	addParallel(new AutoDriveDist(0.6, 0, 100));
-    	addSequential(new AutoSetTote());
+    	addParallel(new AutoDriveDist(0.7, 0, 2));
     	addSequential(new SwagTheRC());
+    	addParallel(new PickersOut(0.5));
+    	addParallel(new AutoSetTote());
     	addSequential(new CollectTote());
-    	addParallel(new AutoDriveDist(0.6, 0, 100));
-    	addSequential(new AutoDriveDist(0.6, 90, 500));
-    	addParallel(new AutoDriveDist(0.6, 180, 200));
+    	addParallel(new AutoDriveDist(0.7, 0, 2));
+    	addSequential(new AutoDriveDist(0.6, 90, 3));
+    	addParallel(new AutoDriveDist(0.6, 180, 3));
     	
     	
     	

@@ -17,7 +17,6 @@ import org.team2642.robot.subsystems.*;
 public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
-    Command initiation;
     SendableChooser autoChooser;
 
     public static OI oi;

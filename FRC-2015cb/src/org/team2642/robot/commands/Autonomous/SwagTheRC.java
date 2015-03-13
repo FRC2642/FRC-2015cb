@@ -29,8 +29,8 @@ public class SwagTheRC extends CommandGroup {
         // arm.
     	requires(Robot.driveTrain);
     	
-    	addSequential(new AutoDriveDist(0.6, 20, 200));
-    	addSequential(new AutoDriveDist(0.6, -20, 200));
+    	addSequential(new AutoDriveDist(0.6, 20, 2));
+    	addSequential(new AutoDriveDist(0.6, -20, 2));
     	
     	
     }

@@ -10,14 +10,14 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveDirection extends Command {
 
     private double angle;
-    private double speed;
+    private double magnitude;
 	
-	public DriveDirection(double driveAngle, double driveSpeed) {
+	public DriveDirection(double driveMagnitude, double driveAngle) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.driveTrain);
     	angle = driveAngle;
-    	speed = driveSpeed;
+    	magnitude = driveMagnitude;
     }
 
     // Called just before this Command runs the first time
@@ -26,7 +26,7 @@ public class DriveDirection extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.driveAngle(angle, speed);
+    	Robot.driveTrain.driveAngle(magnitude, angle);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -82,19 +82,23 @@ public class DriveTrain extends Subsystem {
     }
     
     public void drive(Joystick stick, double angle) {
-    	robotDrive.mecanumDrive_Cartesian(stick.getX(), stick.getY(), stick.getTwist(), angle);
+    	robotDrive.mecanumDrive_Cartesian(stick.getX()/2, stick.getTwist()/2, stick.getY()/2, angle);
     }
     
     public void drive(double speedX, double speedY, double speedR) {
     	robotDrive.mecanumDrive_Cartesian(speedX, speedY, speedR, 0);
     }
     
-    public void driveStraightY(Joystick stick, double setangle) {
-    	robotDrive.mecanumDrive_Cartesian(stick.getX(), (gyro.getAngle() - setangle)*-driveKp, stick.getY(), 0);
+    public void driveFullSpeed(Joystick stick, double angle) {
+    	robotDrive.mecanumDrive_Cartesian(stick.getX(), stick.getTwist(), stick.getY(), angle);
     }
     
-    public void driveAngle(double angle, double speed) {
-		robotDrive.mecanumDrive_Polar(speed, angle, getGyroOffset()); // You're dumb
+    public void driveCrabStraight(Joystick stick, double setangle) {
+    	robotDrive.mecanumDrive_Cartesian(stick.getX(), (setangle - getGyro())*driveKp, stick.getY(), 0);
+    }
+    
+    public void driveAngle(double magnitude, double angle) {
+		robotDrive.mecanumDrive_Polar(magnitude, angle, getGyroOffset());
 	}
     
     public void resetEncoders() {

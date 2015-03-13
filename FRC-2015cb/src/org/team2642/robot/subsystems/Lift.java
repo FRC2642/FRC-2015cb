@@ -31,7 +31,7 @@ public class Lift extends Subsystem {
     public static final double LOWERBOUND = 80;
     
     public static final double UPSPEED = 1;
-    public static final double DOWNSPEED = 0.7;
+    public static final double DOWNSPEED = -0.9;
     
     public final double liftTolerance = 10;
     
