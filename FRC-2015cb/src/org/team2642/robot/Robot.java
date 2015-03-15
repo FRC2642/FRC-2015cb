@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.team2642.robot.commands.Autonomous.*;
 import org.team2642.robot.subsystems.*;
@@ -16,7 +17,7 @@ import org.team2642.robot.subsystems.*;
  */
 public class Robot extends IterativeRobot {
 
-    Command autonomousCommand;
+    Command autoCommand;
     SendableChooser autoChooser;
 
     public static OI oi;
@@ -45,6 +46,7 @@ public class Robot extends IterativeRobot {
         autoChooser = new SendableChooser();
         autoChooser.addDefault("Stacked Tote Set", new AutoStack());
         autoChooser.addObject("Move Forward", new AutoDriveDist(1, 0, 200));
+        SmartDashboard.putData("Autonomous Chooser", autoChooser);
 
     }
 
@@ -63,8 +65,8 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
         // schedule the autonomous command (example)
     	// Error next line
-    	autonomousCommand = (Command) autoChooser.getSelected();
-        if (autonomousCommand != null) autonomousCommand.start();
+    	autoCommand = (Command) autoChooser.getSelected();
+        autoCommand.start();
     }
 
     /**
@@ -79,7 +81,7 @@ public class Robot extends IterativeRobot {
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
+        if (autoCommand != null) autoCommand.cancel();
     }
 
     /**

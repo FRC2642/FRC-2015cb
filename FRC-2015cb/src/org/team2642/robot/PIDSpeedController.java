@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /*
- * PIDController that implements SpeedController
+ * SpeedController with underlying PID
  */
 public class PIDSpeedController implements SpeedController {
 

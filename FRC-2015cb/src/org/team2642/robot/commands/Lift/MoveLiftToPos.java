@@ -1,8 +1,6 @@
 package org.team2642.robot.commands.Lift;
 
 import org.team2642.robot.Robot;
-import org.team2642.robot.subsystems.Lift;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -27,7 +25,7 @@ public class MoveLiftToPos extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.Lift.moveLiftToPos(position);
-    	if (Robot.Lift.getLiftEncoderDist() > Lift.UPPERBOUND) {
+    	if (Robot.Lift.getLiftEncoderDist() > Robot.Lift.getLiftHighBound()) {
     		Robot.Lift.setDogs(true);
     	}
     }

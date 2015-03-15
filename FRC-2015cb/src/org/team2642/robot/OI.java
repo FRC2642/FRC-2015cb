@@ -4,9 +4,11 @@ import org.team2642.robot.commands.Autonomous.*;
 import org.team2642.robot.commands.DriveTrain.*;
 import org.team2642.robot.commands.Lift.*;
 import org.team2642.robot.commands.Pickers.*;
+import org.team2642.robot.triggers.*;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.*;
 
@@ -42,36 +44,44 @@ public class OI {
         
         //DriveTrain Buttons
         Button resetGyro = new JoystickButton(auxcard, 5);
-        Button toggleFieldOrient = new JoystickButton(stick, 2);
+        //Button toggleFieldOrient = new JoystickButton(stick, 2);
+        Button stopDrive = new JoystickButton(stick, 2);
+        Button fullSpeed = new JoystickButton(stick, 1);
         
         //DriveTrain Commands
         resetGyro.whenPressed(new ResetGyro());
-        toggleFieldOrient.whileHeld(new DriveStraight());
+        //toggleFieldOrient.whileHeld(new DriveStraight());
+        stopDrive.whileHeld(new StopDrive());
+        fullSpeed.whileHeld(new DriveArcadeFullSpeed());
         
         //Lift Buttons
-        Button flipper = new JoystickButton(stick, 3);
+        //Button flipper = new JoystickButton(stick, 3);
         Button manualOn = new JoystickButton(auxcard, 12);
+        Trigger autoSetTote = new ToteInRobot();
         Button manualUp = new JoystickButton(auxstick, 3);
         Button manualDown = new JoystickButton(auxstick, 2);
         Button zeroLift = new JoystickButton(auxstick, 10);
         Button autoReleaseStack = new JoystickButton(auxstick, 1);
+        
         Button dogsset = new JoystickButton(auxstick, 6);
         Button pusherset = new JoystickButton(auxstick, 7);
+        
         Button setpoint1 = new JoystickButton(auxcard, 11);
         
         //Lift Commands
-        flipper.whenPressed(new FlipperToggle());
+        //flipper.whenPressed(new FlipperToggle());
         // Manual Lift
         manualUp.whileHeld(new MoveLiftUp());
     	manualDown.whileHeld(new MoveLiftDown());
     	zeroLift.whenPressed(new ZeroLiftEncoder());
     	// Auto Lift
-        manualOn.cancelWhenPressed(new AutoSetTote());
-        manualOn.whenReleased(new AutoSetTote());
+        if (!manualOn.get())
+        	autoSetTote.whenActive(new AutoSetTote());
         
         autoReleaseStack.whenPressed(new AutoReleaseStack());
-        dogsset.whenPressed(new DogsToggle());
-        pusherset.whenPressed(new PusherToggle());
+        
+        dogsset.whenReleased(new DogsToggle());
+        pusherset.whenReleased(new PusherToggle());
         
         setpoint1.whenPressed(new MoveLiftToPos(170));
         
@@ -87,10 +97,10 @@ public class OI {
         // SmartDashboard Buttons
         SmartDashboard.putBoolean("Manual is On", manualOn.get());
         //Drivetrain Cmds
-        SmartDashboard.putData("Drive Default", new MecanumDefault());
-        SmartDashboard.putData("Drive Full Speed", new DriveMecanumFullSpeed());
+        SmartDashboard.putData("Drive Default", new ArcadeDefault());
+        SmartDashboard.putData("Drive Full Speed", new DriveArcadeFullSpeed());
         SmartDashboard.putData("Drive Straight", new DriveStraight());
-        SmartDashboard.putData("Field Oriented Drive", new FieldOrientDrive());
+        //SmartDashboard.putData("Field Oriented Drive", new FieldOrientDrive());
         SmartDashboard.putData("Reset Gyro", new ResetGyro());
         //Lift Cmds
         SmartDashboard.putData("Move Lift To Bottom", new MoveLiftToBottom());

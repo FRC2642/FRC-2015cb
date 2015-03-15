@@ -28,7 +28,7 @@ public class MoveLiftToBottom extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-    	return (Robot.Lift.getBottomLimit() || Robot.Lift.liftInRightPlace());
+    	return (Robot.Lift.getBottomLimit() || Robot.Lift.liftAtTarget(Robot.Lift.getLiftLowBound()));
     }
 
     // Called once after isFinished returns true

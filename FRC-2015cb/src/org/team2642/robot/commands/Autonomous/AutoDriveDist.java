@@ -32,7 +32,6 @@ public class AutoDriveDist extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.drive(magnitude, 0, 0);
     	SmartDashboard.putNumber("Distance Traveled Cmd", Robot.driveTrain.getEncoderDistance());
     	Robot.driveTrain.driveAngle(magnitude, angle);
     	count++;

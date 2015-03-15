@@ -27,11 +27,11 @@ public class Lift extends Subsystem {
     
     public String subsystemName;
     
-    public static final double UPPERBOUND = 1150;
-    public static final double LOWERBOUND = 80;
+    /*public static final double UPPERBOUND = 1150;
+    public static final double LOWERBOUND = 80;*/
     
-    public static final double UPSPEED = 1;
-    public static final double DOWNSPEED = -0.9;
+    /*public static final double UPSPEED = 0.7;
+    public static final double DOWNSPEED = -0.7;*/
     
     public final double liftTolerance = 10;
     
@@ -73,10 +73,18 @@ public class Lift extends Subsystem {
     	return Math.max(Preferences.getInstance().getDouble("LiftSpeed", 0), 0);
 	}
     
+    public double getLiftHighBound() {
+    	return Math.min(Preferences.getInstance().getDouble("LiftUpBound", 0), 1200);
+    }
+    
+    public double getLiftLowBound() {
+    	return Preferences.getInstance().getDouble("LiftDownBound", 0);
+    }
+    
     public void moveLiftUpPID() {
 		//movementState = LiftMovement.Up;
 		//releaseBrake();
-		if (!getTopLimit() || liftEncoder.getDistance() < UPPERBOUND) {
+		if (!getTopLimit() || liftEncoder.getDistance() < getLiftHighBound()) {
 			pid.set(-getLiftSpeed());
 		}
 		SmartDashboard.putString(subsystemName + "Move state", "Up");
@@ -86,8 +94,8 @@ public class Lift extends Subsystem {
     public void moveLiftUp() {
 		//movementState = LiftMovement.Up;
 		//releaseBrake();
-		if (!getTopLimit() || liftEncoder.getDistance() < UPPERBOUND) {
-			lift.set(UPSPEED);
+		if (!getTopLimit() || liftEncoder.getDistance() < getLiftHighBound()) {
+			lift.set(getLiftSpeed());
 		}
 		SmartDashboard.putString(subsystemName + "Move state", "Up");
 		SmartDashboard.putNumber(subsystemName, liftEncoder.getRate());
@@ -96,7 +104,7 @@ public class Lift extends Subsystem {
     public void moveLiftDownPID() {
 		//movementState = LiftMovement.Down;
 		//releaseBrake();
-		if (liftEncoder.getDistance() > LOWERBOUND) {
+		if (liftEncoder.getDistance() > getLiftLowBound()) {
     		pid.set(getLiftSpeed());
 		}
 		SmartDashboard.putString(subsystemName + "Move state", "Down");
@@ -106,11 +114,11 @@ public class Lift extends Subsystem {
     public void moveLiftDown() {
 		//movementState = LiftMovement.Down;
 		//releaseBrake();
-		if (liftEncoder.getDistance() > LOWERBOUND) {
-    		lift.set(DOWNSPEED);
+		if (liftEncoder.getDistance() > getLiftLowBound()) {
+    		lift.set(-getLiftSpeed());
 		}
 		SmartDashboard.putString(subsystemName + "Move state", "Down");
-		SmartDashboard.putNumber(subsystemName, liftEncoder.getRate());
+		SmartDashboard.putNumber(subsystemName + "Lift Rate", liftEncoder.getRate());
 	}
 
 	public boolean isLiftAboveDogs() {
@@ -125,6 +133,7 @@ public class Lift extends Subsystem {
 	}
 	
     public double getLiftEncoderDist() {
+    	SmartDashboard.putNumber(subsystemName + "Lift Dist", liftEncoder.getDistance());
     	return liftEncoder.getDistance();
     }
     public double getLiftEncoderRate() {
@@ -152,7 +161,7 @@ public class Lift extends Subsystem {
     }
     
     public boolean liftInRightPlace() {
-    	return ((liftEncoder.getDistance() < UPPERBOUND) || (liftEncoder.getDistance() > LOWERBOUND));
+    	return ((liftEncoder.getDistance() < getLiftHighBound()) || (liftEncoder.getDistance() > getLiftLowBound()));
     }
     
     public void moveLiftToPos(double position) {

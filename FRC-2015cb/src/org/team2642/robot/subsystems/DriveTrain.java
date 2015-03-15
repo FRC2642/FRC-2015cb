@@ -2,7 +2,7 @@ package org.team2642.robot.subsystems;
 
 import org.team2642.robot.PIDSpeedController;
 import org.team2642.robot.RobotMap;
-import org.team2642.robot.commands.DriveTrain.MecanumDefault;
+import org.team2642.robot.commands.DriveTrain.*;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -44,7 +44,7 @@ public class DriveTrain extends Subsystem {
     }
     
     public void initDefaultCommand() {
-        setDefaultCommand(new MecanumDefault());
+        setDefaultCommand(new ArcadeDefault());
         
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
@@ -54,7 +54,7 @@ public class DriveTrain extends Subsystem {
     	robotDrive.mecanumDrive_Cartesian(0, 0, 0, 0);
     }
     
-    private double getGyroOffset() {
+    /*private double getGyroOffset() {
 		double gyroOffset = (getGyro() * Preferences.getInstance().getDouble("GyroStrafeConstant", .01111111111));
 		// IF THE ABOSOLUTE VAL OF THE GYRO OFFSET IS LARGER THAN 1
 		if (gyroOffset > 1 || gyroOffset < -1) {
@@ -63,7 +63,7 @@ public class DriveTrain extends Subsystem {
 		} else {
 			return -gyroOffset;
 		}
-	}
+	}*/
     
     public void initGyro() {
     	gyro.initGyro();
@@ -81,7 +81,7 @@ public class DriveTrain extends Subsystem {
     	 gyro.reset();
     }
     
-    public void drive(Joystick stick, double angle) {
+    /*public void drive(Joystick stick, double angle) {
     	robotDrive.mecanumDrive_Cartesian(stick.getX()/2, stick.getTwist()/2, stick.getY()/2, angle);
     }
     
@@ -99,6 +99,26 @@ public class DriveTrain extends Subsystem {
     
     public void driveAngle(double magnitude, double angle) {
 		robotDrive.mecanumDrive_Polar(magnitude, angle, getGyroOffset());
+	}*/
+    
+    public void drive(Joystick stick) {
+    	robotDrive.arcadeDrive(stick.getY()*0.7, stick.getX()*0.7);
+    }
+    
+    public void drive(double speedX, double speedY, double speedR) {
+    	robotDrive.arcadeDrive(speedY, speedR);
+    }
+    
+    public void driveFullSpeed(Joystick stick) {
+    	robotDrive.arcadeDrive(stick);
+    }
+    
+    public void driveStraight(Joystick stick, double setangle) {
+    	robotDrive.arcadeDrive(stick.getY(), (setangle - getGyro())*driveKp);
+    }
+    
+    public void driveAngle(double magnitude, double angle) {
+		robotDrive.arcadeDrive(magnitude, angle);
 	}
     
     public void resetEncoders() {
