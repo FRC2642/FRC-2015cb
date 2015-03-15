@@ -7,34 +7,34 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveStraight extends Command {
+public class DriveLength extends Command {
 
-    private double setpoint;
+    double setpoint;
 	
-	public DriveStraight() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.driveTrain);
+	public DriveLength(double inches) {
+        requires(Robot.driveTrain);
+        setpoint = inches;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	setpoint = Robot.driveTrain.getGyro();
+    	Robot.driveTrain.straightController.enable();
+    	Robot.driveTrain.straightController.setSetpoint(setpoint);
+    	Robot.driveTrain.resetEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.driveStraight(Robot.oi.getStick(), setpoint);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.driveTrain.straightController.onTarget();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	//Robot.driveTrain.drive(0, 0, 0);
+    	Robot.driveTrain.straightController.disable();
     }
 
     // Called when another command which requires one or more of the same

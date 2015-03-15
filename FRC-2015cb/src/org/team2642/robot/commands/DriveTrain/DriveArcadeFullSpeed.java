@@ -27,7 +27,7 @@ public class  DriveArcadeFullSpeed extends Command {
     }
 
     protected void end() {
-    	Robot.driveTrain.drive(0, 0, 0);
+    	Robot.driveTrain.arcadeDrive(0, 0);
     }
 
     protected void interrupted() {

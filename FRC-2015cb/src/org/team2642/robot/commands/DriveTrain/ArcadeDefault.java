@@ -19,7 +19,7 @@ public class  ArcadeDefault extends Command {
     }
 
     protected void execute() {
-    	Robot.driveTrain.drive(Robot.oi.getStick());
+    	Robot.driveTrain.arcadeDrive(Robot.oi.getStick());
     }
 
     protected boolean isFinished() {
@@ -27,7 +27,7 @@ public class  ArcadeDefault extends Command {
     }
 
     protected void end() {
-    	Robot.driveTrain.drive(0, 0, 0);
+    	Robot.driveTrain.arcadeDrive(0, 0);
     }
 
     protected void interrupted() {

@@ -26,6 +26,9 @@ public class DriveTrain extends Subsystem {
     PIDSpeedController backLeftPID = new PIDSpeedController(leftEncoder, backLeftMotor, "Drive", "Back Left");
     PIDSpeedController backRightPID = new PIDSpeedController(rightEncoder, backRightMotor, "Drive", "Back Left");
     
+    public PIDController straightController;
+    public PIDController turnController;
+    
     RobotDrive robotDrive = RobotMap.driveTrainrobotDrive;
     
     Accelerometer accel = RobotMap.accel;
@@ -41,6 +44,24 @@ public class DriveTrain extends Subsystem {
     
     public DriveTrain(String subsystem) {
     	subsystemName = subsystem;
+    	TurnControllerHandler turnHandler = new TurnControllerHandler();
+        turnController = new PIDController(
+                -Preferences.getInstance().getDouble("Turn P", 0),
+                -Preferences.getInstance().getDouble("Turn P", 0),
+                -Preferences.getInstance().getDouble("Turn P", 0),
+                turnHandler, turnHandler);
+
+        turnController.setAbsoluteTolerance(Preferences.getInstance().getDouble("Turn Drive PID Abs Tolerance", 0));
+        turnController.setOutputRange(-0.7, 0.7);
+
+        StraightControllerHandler straightHandler = new StraightControllerHandler();
+        straightController = new PIDController(
+        		Preferences.getInstance().getDouble("DriveStraight P", 0),
+        		Preferences.getInstance().getDouble("DriveStraight I", 0),
+        		Preferences.getInstance().getDouble("DriveStraight D", 0),
+                straightHandler, straightHandler);
+        straightController.setAbsoluteTolerance(Preferences.getInstance().getDouble("Straight Drive PID Abs Tolerance", 0));
+        straightController.setOutputRange(-0.7, 0.7);
     }
     
     public void initDefaultCommand() {
@@ -48,6 +69,34 @@ public class DriveTrain extends Subsystem {
         
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    }
+    
+    private class StraightControllerHandler implements PIDSource, PIDOutput {
+    	@Override
+    	public void pidWrite(double output) {
+    		// Do something with the output PID value, like update motors
+    		arcadeDrive(output, 0);
+    	}
+    	
+    	@Override
+    	public double pidGet() {
+    		// Return the sensor value for the PID input
+    		return getEncoderDistance();
+    	}
+    }
+
+    private class TurnControllerHandler implements PIDSource, PIDOutput {
+    	@Override
+    	public void pidWrite(double output) {
+    		// Do something with the output PID value, like update motors
+    		arcadeDrive(0, output);
+    	}
+    	
+    	@Override
+    	public double pidGet() {
+    		// Return the sensor value for the PID input
+    		return getGyro();
+    	}
     }
     
     public void stopMotors() {
@@ -101,11 +150,11 @@ public class DriveTrain extends Subsystem {
 		robotDrive.mecanumDrive_Polar(magnitude, angle, getGyroOffset());
 	}*/
     
-    public void drive(Joystick stick) {
+    public void arcadeDrive(Joystick stick) {
     	robotDrive.arcadeDrive(stick.getY()*0.7, stick.getX()*0.7);
     }
     
-    public void drive(double speedX, double speedY, double speedR) {
+    public void arcadeDrive(double speedY, double speedR) {
     	robotDrive.arcadeDrive(speedY, speedR);
     }
     
@@ -118,7 +167,7 @@ public class DriveTrain extends Subsystem {
     }
     
     public void driveAngle(double magnitude, double angle) {
-		robotDrive.arcadeDrive(magnitude, angle);
+		robotDrive.arcadeDrive(0, angle);
 	}
     
     public void resetEncoders() {
