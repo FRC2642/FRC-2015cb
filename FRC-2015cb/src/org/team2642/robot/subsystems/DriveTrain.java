@@ -1,6 +1,6 @@
 package org.team2642.robot.subsystems;
 
-import org.team2642.robot.PIDSpeedController;
+//import org.team2642.robot.PIDSpeedController;
 import org.team2642.robot.RobotMap;
 import org.team2642.robot.commands.DriveTrain.*;
 
@@ -23,8 +23,8 @@ public class DriveTrain extends Subsystem {
     SpeedController frontRightMotor = RobotMap.driveTrainFrontRightMotor;
     SpeedController backRightMotor = RobotMap.driveTrainRearRightMotor;
 
-    PIDSpeedController backLeftPID = new PIDSpeedController(leftEncoder, backLeftMotor, "Drive", "Back Left");
-    PIDSpeedController backRightPID = new PIDSpeedController(rightEncoder, backRightMotor, "Drive", "Back Left");
+    //PIDSpeedController backLeftPID = new PIDSpeedController(leftEncoder, backLeftMotor, "Drive", "Back Left");
+    //PIDSpeedController backRightPID = new PIDSpeedController(rightEncoder, backRightMotor, "Drive", "Back Left");
     
     public PIDController straightController;
     public PIDController turnController;
@@ -42,13 +42,15 @@ public class DriveTrain extends Subsystem {
 
     public static final double DistanceNormal = 91.5;
     
+    private double gyrozero = 0;
+    
     public DriveTrain(String subsystem) {
     	subsystemName = subsystem;
     	TurnControllerHandler turnHandler = new TurnControllerHandler();
         turnController = new PIDController(
                 -Preferences.getInstance().getDouble("Turn P", 0),
-                -Preferences.getInstance().getDouble("Turn P", 0),
-                -Preferences.getInstance().getDouble("Turn P", 0),
+                -Preferences.getInstance().getDouble("Turn I", 0),
+                -Preferences.getInstance().getDouble("Turn D", 0),
                 turnHandler, turnHandler);
 
         turnController.setAbsoluteTolerance(Preferences.getInstance().getDouble("Turn Drive PID Abs Tolerance", 0));
@@ -95,7 +97,7 @@ public class DriveTrain extends Subsystem {
     	@Override
     	public double pidGet() {
     		// Return the sensor value for the PID input
-    		return getGyro();
+    		return getAbsGyro();
     	}
     }
     
@@ -120,14 +122,22 @@ public class DriveTrain extends Subsystem {
     }
     
     public double getGyro() {
-		double angle = gyro.getAngle();
+		double angle = gyro.getAngle() - gyrozero;
 		SmartDashboard.putNumber("Gyro Angle", angle);
 		SmartDashboard.putNumber("Gyro Rate", gyro.getRate());
 		return angle;
 	}
     
+    public double getAbsGyro() {
+    	double angle = gyro.getAngle();
+		SmartDashboard.putNumber("Gyro Angle", angle);
+		SmartDashboard.putNumber("Gyro Rate", gyro.getRate());
+		return angle;
+    }
+    
     public void resetGyro() {
-    	 gyro.reset();
+    	gyrozero = gyro.getAngle();
+    	//gyro.reset();
     }
     
     /*public void drive(Joystick stick, double angle) {

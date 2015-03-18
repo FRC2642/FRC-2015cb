@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.team2642.robot.commands.Autonomous.*;
+import org.team2642.robot.commands.DriveTrain.*;
 import org.team2642.robot.subsystems.*;
 
 /**
@@ -44,8 +45,8 @@ public class Robot extends IterativeRobot {
         
         // instantiate the command used for the autonomous period
         autoChooser = new SendableChooser();
-        autoChooser.addDefault("Stacked Tote Set", new AutoStack());
-        autoChooser.addObject("Move Forward", new AutoDriveDist(1, 0, 200));
+        autoChooser.addDefault("Stacked Tote Set", new Auton3ToteStack());
+        autoChooser.addObject("Move Forward", new DriveLength(90));
         SmartDashboard.putData("Autonomous Chooser", autoChooser);
 
     }
