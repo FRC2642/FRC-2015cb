@@ -1,4 +1,4 @@
-package org.team2642.robot.commands.Autonomous;
+package org.team2642.robot.commands.Lift;
 
 import org.team2642.robot.Robot;
 import org.team2642.robot.subsystems.Lift;

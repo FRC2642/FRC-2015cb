@@ -113,7 +113,6 @@ public class OI {
         SmartDashboard.putData("Pusher Toggle", new PusherToggle());
         //Autonomous
         SmartDashboard.putData("Autonomous Tote Stack", new Auton3ToteStack());
-        SmartDashboard.putData("Go Around RC", new SwagTheRC());
         SmartDashboard.putData("Go Foward", new DriveDirection(500, 0));
         
         

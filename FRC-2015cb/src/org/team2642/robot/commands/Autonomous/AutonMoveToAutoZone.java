@@ -1,16 +1,15 @@
 package org.team2642.robot.commands.Autonomous;
 
-import org.team2642.robot.Robot;
+import org.team2642.robot.commands.DriveTrain.*;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import org.team2642.robot.commands.DriveTrain.*;
 
 /**
  *
  */
-public class SwagTheRC extends CommandGroup {
+public class AutonMoveToAutoZone extends CommandGroup {
     
-    public  SwagTheRC() {
+    public  AutonMoveToAutoZone() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -27,11 +26,9 @@ public class SwagTheRC extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	requires(Robot.driveTrain);
     	
-    	addSequential(new AutoDriveDist(0.6, 20, 2));
-    	addSequential(new AutoDriveDist(0.6, -20, 2));
-    	
+    	//addSequential(new TurnDegrees(0));
+    	addSequential(new DriveLength(100));
     	
     }
 }

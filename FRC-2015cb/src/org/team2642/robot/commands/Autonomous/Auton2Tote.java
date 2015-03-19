@@ -1,24 +1,21 @@
 package org.team2642.robot.commands.Autonomous;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-
-import org.team2642.robot.commands.DriveTrain.*;
+import org.team2642.robot.commands.DriveTrain.DriveLength;
+import org.team2642.robot.commands.DriveTrain.ToTote;
+import org.team2642.robot.commands.DriveTrain.TurnDegrees;
 import org.team2642.robot.commands.Lift.AutoReleaseStack;
 import org.team2642.robot.commands.Lift.AutoSetTote;
-import org.team2642.robot.commands.Pickers.*;
-import org.team2642.robot.*;
+import org.team2642.robot.commands.Pickers.PickersOut;
+
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class Auton3ToteStack extends CommandGroup {
+public class Auton2Tote extends CommandGroup {
     
-    public  Auton3ToteStack() {
+    public  Auton2Tote() {
         
-    	requires(Robot.Lift);
-    	requires(Robot.Pickers);
-    	requires(Robot.driveTrain);
-    	
     	addSequential(new ToTote()); // 1st tote
     	//addParallel(new AutoDriveDist(0.7, 0, 2));
     	//addSequential(new SwagTheRC());
@@ -31,14 +28,10 @@ public class Auton3ToteStack extends CommandGroup {
     	addSequential(new TurnDegrees(10, true));
     	addParallel(new PickersOut(0.5));
     	addParallel(new AutoSetTote());
-    	addSequential(new DriveLength(40));
-    	addSequential(new TurnDegrees(-10, true));
-    	addSequential(new ToTote()); // 3rd tote
-    	addSequential(new TurnDegrees(90, true));
+    	addSequential(new TurnDegrees(90, true));// face other side of field
     	addSequential(new DriveLength(90));
     	addParallel(new DriveLength(-10));
     	addSequential(new AutoReleaseStack());
-    	
     	
     }
 }

@@ -1,4 +1,4 @@
-package org.team2642.robot.commands.Autonomous;
+package org.team2642.robot.commands.Lift;
 
 import org.team2642.robot.Robot;
 
@@ -14,6 +14,7 @@ public class AutoReleaseStack extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.Lift);
+    	requires(Robot.Pickers);
     }
 
     // Called just before this Command runs the first time
