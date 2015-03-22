@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MoveLiftToBottom extends Command {
+public class ZeroLift extends Command {
 
-    public MoveLiftToBottom() {
+    public ZeroLift() {
     	requires(Robot.Lift);
     }
 
@@ -30,6 +30,7 @@ public class MoveLiftToBottom extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.Lift.stopLift();
+    	Robot.Lift.resetLiftEncoder();
     }
 
     // Called when another command which requires one or more of the same

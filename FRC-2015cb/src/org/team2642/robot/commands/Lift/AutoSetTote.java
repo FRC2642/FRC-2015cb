@@ -21,10 +21,11 @@ public class AutoSetTote extends Command {
     }
 
     protected void execute() {
-    	Robot.Lift.moveLiftUp();
     	if (Robot.Lift.isLiftAboveDogs() && liftUp == true)
     		liftUp = false;
-    	if (!liftUp)
+    	if (liftUp)
+        	Robot.Lift.moveLiftUp();
+    	else
     		Robot.Lift.moveLiftDown();
     }
 

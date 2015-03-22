@@ -1,4 +1,4 @@
-package org.team2642.robot.commands.DriveTrain;
+package org.team2642.robot.commands.Lift;
 
 import org.team2642.robot.Robot;
 
@@ -7,41 +7,37 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveCartesian extends Command {
+public class StackArmToggle extends Command {
 
-    private double speedX;
-    private double speedY;
-    private double speedR;
-	
-	public DriveCartesian(double X, double Y, double R) {
+    public StackArmToggle() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.driveTrain);
-    	speedX = X;
-    	speedY = Y;
-    	speedR = R;
+    	requires(Robot.Lift);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.Lift.toggleStackArm();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Robot.driveTrain.drive(speedX, speedY, speedR);
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

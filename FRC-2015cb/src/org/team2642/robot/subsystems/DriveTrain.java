@@ -83,7 +83,7 @@ public class DriveTrain extends Subsystem {
     	@Override
     	public double pidGet() {
     		// Return the sensor value for the PID input
-    		return getEncoderDistance();
+    		return getDistance();
     	}
     }
 
@@ -130,35 +130,13 @@ public class DriveTrain extends Subsystem {
     
     public double getAbsGyro() {
     	double angle = gyro.getAngle();
-		SmartDashboard.putNumber("Gyro Angle", angle);
-		SmartDashboard.putNumber("Gyro Rate", gyro.getRate());
+		SmartDashboard.putNumber("Absolute Gyro Angle", angle);
 		return angle;
     }
     
     public void resetGyro() {
     	gyrozero = gyro.getAngle();
-    	//gyro.reset();
     }
-    
-    /*public void drive(Joystick stick, double angle) {
-    	robotDrive.mecanumDrive_Cartesian(stick.getX()/2, stick.getTwist()/2, stick.getY()/2, angle);
-    }
-    
-    public void drive(double speedX, double speedY, double speedR) {
-    	robotDrive.mecanumDrive_Cartesian(speedX, speedY, speedR, 0);
-    }
-    
-    public void driveFullSpeed(Joystick stick, double angle) {
-    	robotDrive.mecanumDrive_Cartesian(stick.getX(), stick.getTwist(), stick.getY(), angle);
-    }
-    
-    public void driveCrabStraight(Joystick stick, double setangle) {
-    	robotDrive.mecanumDrive_Cartesian(stick.getX(), (setangle - getGyro())*driveKp, stick.getY(), 0);
-    }
-    
-    public void driveAngle(double magnitude, double angle) {
-		robotDrive.mecanumDrive_Polar(magnitude, angle, getGyroOffset());
-	}*/
     
     public void arcadeDrive(Joystick stick) {
     	robotDrive.arcadeDrive(stick.getY()*0.7, stick.getX()*0.7);
@@ -176,9 +154,9 @@ public class DriveTrain extends Subsystem {
     	robotDrive.arcadeDrive(stick.getY(), (setangle - getGyro())*driveKp);
     }
     
-    public void driveAngle(double magnitude, double angle) {
-		robotDrive.arcadeDrive(0, angle);
-	}
+    public void driveStraight(double speedY, double setangle) {
+    	robotDrive.arcadeDrive(speedY, (setangle - getGyro())*driveKp);
+    }
     
     public void resetEncoders() {
     	leftEncoder.reset();
@@ -190,13 +168,17 @@ public class DriveTrain extends Subsystem {
     	SmartDashboard.putNumber("Right Encoder Speed", rightEncoder.getRate());
     }
     
-    public double getDistanceTraveled(Encoder driveEncoder) {
+    public double getDistance(Encoder driveEncoder) {
 		return (driveEncoder.getDistance() /* DistanceNormal*/);
 	}
     
-    public double getEncoderDistance() {
-		return (getDistanceTraveled(rightEncoder)+ getDistanceTraveled(leftEncoder)) / 2;
+    public double getDistance() {
+		return ((getDistance(rightEncoder)+ getDistance(leftEncoder)) / 2) / 19.098593171027440292266051604702;
 	}
+    
+    public boolean distanceOnTarget(double distance) {
+    	return ((distance > getDistance() - 5) || (distance < getDistance() + 5));
+    }
     
 }
 

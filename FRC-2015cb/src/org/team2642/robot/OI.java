@@ -44,13 +44,11 @@ public class OI {
         
         //DriveTrain Buttons
         Button resetGyro = new JoystickButton(auxcard, 5);
-        //Button toggleFieldOrient = new JoystickButton(stick, 2);
         Button stopDrive = new JoystickButton(stick, 2);
         Button fullSpeed = new JoystickButton(stick, 1);
         
         //DriveTrain Commands
         resetGyro.whenPressed(new ResetGyro());
-        //toggleFieldOrient.whileHeld(new DriveStraight());
         stopDrive.whileHeld(new StopDrive());
         fullSpeed.whileHeld(new DriveArcadeFullSpeed());
         
@@ -65,6 +63,7 @@ public class OI {
         
         Button dogsset = new JoystickButton(auxstick, 6);
         Button pusherset = new JoystickButton(auxstick, 7);
+        Button stackarmset = new JoystickButton(auxstick, 8);
         
         Button setpoint1 = new JoystickButton(auxcard, 11);
         
@@ -73,7 +72,7 @@ public class OI {
         // Manual Lift
         manualUp.whileHeld(new MoveLiftUp());
     	manualDown.whileHeld(new MoveLiftDown());
-    	zeroLift.whenPressed(new ZeroLiftEncoder());
+    	zeroLift.whenPressed(new ZeroLift());
     	// Auto Lift
         if (!manualOn.get())
         	autoSetTote.whenActive(new AutoSetTote());
@@ -82,6 +81,7 @@ public class OI {
         
         dogsset.whenReleased(new DogsToggle());
         pusherset.whenReleased(new PusherToggle());
+        stackarmset.whenReleased(new StackArmToggle());
         
         setpoint1.whenPressed(new MoveLiftToPos(170));
         
@@ -112,8 +112,11 @@ public class OI {
         SmartDashboard.putData("Flipper Toggle", new FlipperToggle());
         SmartDashboard.putData("Pusher Toggle", new PusherToggle());
         //Autonomous
-        SmartDashboard.putData("Autonomous Tote Stack", new Auton3ToteStack());
-        SmartDashboard.putData("Go Foward", new DriveDirection(500, 0));
+        SmartDashboard.putData("Autonomous Do Nothing", new AutonDoNothing());
+        SmartDashboard.putData("Autonomous Drive Forward", new AutonDriveForward());
+        SmartDashboard.putData("Autonomous 1 Tote", new Auton1Tote());
+        SmartDashboard.putData("Autonomous 2 Tote", new Auton2Tote());
+        SmartDashboard.putData("Autonomous 3 Tote", new Auton3ToteStack());
         
         
         //Other data

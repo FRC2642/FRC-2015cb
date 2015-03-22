@@ -7,39 +7,44 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveDirection extends Command {
+public class DriveForward extends Command {
 
-    private double angle;
-    private double magnitude;
+	double distance;
+	double setangle;
 	
-	public DriveDirection(double driveMagnitude, double driveAngle) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.driveTrain);
-    	angle = driveAngle;
-    	magnitude = driveMagnitude;
+    public DriveForward(double inches) {
+		requires(Robot.driveTrain);
+		distance = inches;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	setangle = Robot.driveTrain.getGyro();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.driveAngle(magnitude, angle);
+    	if (distance > 0) {
+    		Robot.driveTrain.driveStraight(0.7, setangle);
+    	}
+    	else if (distance < 0) {
+    		Robot.driveTrain.driveStraight(-0.7, setangle);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.driveTrain.distanceOnTarget(distance);
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.driveTrain.stopMotors();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

@@ -1,7 +1,6 @@
 package org.team2642.robot.subsystems;
 
 import org.team2642.robot.RobotMap;
-import org.team2642.robot.commands.Pickers.*;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -15,6 +14,11 @@ public class Pickers extends Subsystem {
 	
 	Talon leftPicker = RobotMap.leftPicker;
 	Talon rightPicker = RobotMap.rightPicker;
+	String subsystemName;
+	
+	public Pickers(String subsystem) {
+		subsystemName = subsystem;
+	}
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

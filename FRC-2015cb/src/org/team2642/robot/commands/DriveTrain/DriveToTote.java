@@ -1,4 +1,4 @@
-package org.team2642.robot.commands.Lift;
+package org.team2642.robot.commands.DriveTrain;
 
 import org.team2642.robot.Robot;
 
@@ -7,9 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MoveLiftToBottom extends Command {
+public class DriveToTote extends Command {
 
-    public MoveLiftToBottom() {
+    public DriveToTote() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	//requires(Robot.driveTrain);
     	requires(Robot.Lift);
     }
 
@@ -19,22 +22,21 @@ public class MoveLiftToBottom extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.Lift.moveLiftDown();
+    	Robot.driveTrain.arcadeDrive(0.8, 0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return (Robot.Lift.getBottomLimit() || Robot.Lift.liftAtTarget(Robot.Lift.getLiftLowBound()));
+        return Robot.Lift.getToteInRobot();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.Lift.stopLift();
+    	//Robot.driveTrain.drive(0, 0, 0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

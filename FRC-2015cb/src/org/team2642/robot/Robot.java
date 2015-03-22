@@ -34,7 +34,7 @@ public class Robot extends IterativeRobot {
     	RobotMap.init();
         driveTrain = new DriveTrain("DriveTrain");
         Lift = new Lift("Lift");
-        Pickers = new Pickers();
+        Pickers = new Pickers("Pickers");
 
         // OI must be constructed after subsystems. If the OI creates Commands 
         //(which it very likely will), subsystems are not guaranteed to be 
@@ -44,10 +44,7 @@ public class Robot extends IterativeRobot {
         
         
         // instantiate the command used for the autonomous period
-        autoChooser = new SendableChooser();
-        autoChooser.addDefault("Stacked Tote Set", new Auton3ToteStack());
-        autoChooser.addObject("Move Forward", new DriveLength(90));
-        SmartDashboard.putData("Autonomous Chooser", autoChooser);
+        makeAutoChooser();
 
     }
 
@@ -98,5 +95,17 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+    
+    private void makeAutoChooser() {
+    	autoChooser = new SendableChooser();
+        
+    	autoChooser.addDefault("Do Nothing", new AutonDoNothing());
+        autoChooser.addObject("Move Forward", new DriveForwardPID(100));
+    	autoChooser.addObject("3 Tote Stack", new Auton3ToteStack());
+    	autoChooser.addObject("2 Tote Stack", new Auton2Tote());
+    	autoChooser.addObject("1 Tote", new Auton1Tote());
+        
+        SmartDashboard.putData("Autonomous Chooser", autoChooser);
     }
 }
