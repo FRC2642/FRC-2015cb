@@ -12,12 +12,12 @@ public class DriveInput extends Command {
     private double rotation;
     private double move;
 	
-	public DriveInput(double driveMagnitude, double driveAngle) {
+	public DriveInput(double moveValue, double angleValue) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.driveTrain);
-    	rotation = driveAngle;
-    	move = driveMagnitude;
+    	rotation = angleValue;
+    	move = moveValue;
     }
 
     // Called just before this Command runs the first time
