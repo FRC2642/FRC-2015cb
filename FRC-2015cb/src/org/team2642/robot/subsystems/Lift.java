@@ -155,25 +155,28 @@ public class Lift extends Subsystem {
 	}*/
     
     public void moveLiftDown() {
-		//movementState = LiftMovement.Down;
-		//releaseBrake();
-		if (liftEncoder.getDistance() > getLiftLowBound()) {
-    		lift.set(-getLiftSpeed());
-		}
-		SmartDashboard.putString(subsystemName + "Move state", "Down");
-		SmartDashboard.putNumber(subsystemName + "Lift Rate", liftEncoder.getRate());
+	//movementState = LiftMovement.Down;
+	//releaseBrake();
+	if (liftEncoder.getDistance() > getLiftLowBound()) {
+    	lift.set(-getLiftSpeed());
 	}
-
-	public boolean isLiftAboveDogs() {
-		return (liftEncoder.getDistance() > 1200);
-	}
-
-	public void stopLift() {
-		//movementState = LiftMovement.Stopped;
-		lift.set(0);
-		//setBrake();
-		SmartDashboard.putString(subsystemName + "Move state", "Stop");
-	}
+	SmartDashboard.putString(subsystemName + "Move state", "Down");
+	SmartDashboard.putNumber(subsystemName + "Lift Rate", liftEncoder.getRate());
+    }
+    
+    public void stopLift() {
+	//movementState = LiftMovement.Stopped;
+	lift.set(0);
+	//setBrake();
+	SmartDashboard.putString(subsystemName + "Move state", "Stop");
+    }
+    
+    public boolean liftAtTop() {
+    	return (Robot.Lift.getTopLimit() || Robot.Lift.liftAtTarget(Robot.Lift.getLiftHighBound()));
+    }
+    public boolean liftAtBottom() {
+    	return (Robot.Lift.getBottomLimit() || Robot.Lift.liftAtTarget(Robot.Lift.getLiftLowBound()));
+    }
 	
     public double getLiftEncoderDist() {
     	SmartDashboard.putNumber(subsystemName + "Lift Dist", liftEncoder.getDistance());
